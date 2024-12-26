@@ -23,14 +23,19 @@ defmodule AC.Day2 do
     data |> Enum.count(&safe_record/1)
   end
 
+  def part_two(data) do
+    data
+    |> Enum.count(fn data_row ->
+      0..(length(data_row) - 1)
+      |> Enum.map(fn index ->
+        data_row |> List.delete_at(index)
+      end)
+      |> Enum.any?(&safe_record/1)
+    end)
+  end
+
   defp safe_record(data_row) do
     pattern = pattern_test(data_row)
-    IO.inspect(data_row, charlists: :lists)
-
-    IO.inspect(
-      data_row
-      |> with_neighbor()
-    )
 
     data_row
     |> with_neighbor()
