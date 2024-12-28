@@ -13,4 +13,16 @@ defmodule AC.Day3 do
     |> Enum.map(fn [a, b] -> a * b end)
     |> Enum.sum()
   end
+
+  defp slice_to_int(data, [a, al]) do
+    {data |> String.slice(a, al) |> String.to_integer(), al}
+  end
+
+  def part_two(data) do
+    # Mul Instruction
+    Regex.scan(@mul_regex, data, return: :index)
+    |> Enum.map(fn [mul, [a, al], [b, bl]] ->
+      {mul, {String.to_integer(a), String.to_integer(b)}}
+    end)
+  end
 end
