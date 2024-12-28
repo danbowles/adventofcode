@@ -1,8 +1,6 @@
 defmodule AC.Day1 do
   def load_data() do
-    File.read!("priv/2024/day1.txt")
-    |> String.trim()
-    |> String.split("\n")
+    Util.Input.load_day_input(2024, 1, "\n")
     |> Enum.map(&String.split(&1, ~r/\s+/, trim: true))
     |> Enum.map(fn [a, b] -> {String.to_integer(a), String.to_integer(b)} end)
     |> List.zip()
