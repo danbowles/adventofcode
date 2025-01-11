@@ -24,6 +24,17 @@ defmodule AC.Day5 do
     |> Enum.sum()
   end
 
+  def part_two({rules, updates}) do
+    updates
+    |> Enum.reject(fn update -> correct_order?(rules, update) end)
+    |> Enum.map(fn update ->
+      update
+      |> Enum.sort(fn a, b -> not MapSet.member?(rules, {b, a}) end)
+    end)
+    |> Enum.map(fn update -> update |> Enum.at(div(length(update), 2)) |> String.to_integer() end)
+    |> Enum.sum()
+  end
+
   defp correct_order?(rules, update) do
     update
     |> Enum.with_index(1)
@@ -35,8 +46,5 @@ defmodule AC.Day5 do
     |> Enum.all?(fn order_item ->
       Enum.all?(order_item, fn {a, b} -> !MapSet.member?(rules, {b, a}) end)
     end)
-  end
-
-  def part_two(_data) do
   end
 end
