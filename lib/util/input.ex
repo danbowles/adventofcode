@@ -17,7 +17,7 @@ defmodule Util.Input do
     rows = length(data)
     cols = data |> Enum.at(0) |> length()
 
-    grid = {
+    grid =
       Enum.reduce(0..(rows - 1), %{}, fn row, acc_grid ->
         Map.new(0..(cols - 1), fn col ->
           {
@@ -27,7 +27,6 @@ defmodule Util.Input do
         end)
         |> then(&Map.merge(acc_grid, &1))
       end)
-    }
 
     {grid, rows, cols}
   end
