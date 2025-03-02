@@ -11,7 +11,12 @@ defmodule Mix.Tasks.CreateDay do
   end
 
   def run([year, day]) do
-    create_day(year, day)
+    unless File.exists?(Path.join([@lib_dir, "day#{day}.ex"])) do
+      create_day(year, day)
+    else
+      IO.puts("Day `#{day}` for `#{year}` already exists")
+      System.halt(1)
+    end
   end
 
   def create_day(year, day) do
